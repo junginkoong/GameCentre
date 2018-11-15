@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "870473076490",
+    "firebase_url": "https://gamecentre-c0c28.firebaseio.com",
+    "project_id": "gamecentre-c0c28",
+    "storage_bucket": "gamecentre-c0c28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870473076490:android:7c2564815f6a1099",
+        "android_client_info": {
+          "package_name": "com.example.prathamdesai13.gamecentre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870473076490-vj9f7uk87k4uq7odegl78dvq84gr9pam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5Zrc2RxEo4GYVZLf0ihinshXKt2UnFj4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

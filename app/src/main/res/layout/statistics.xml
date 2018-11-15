@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/badassBlue"
+    tools:context="com.example.prathamdesai13.gamecentre.StatisticsActivity">
+
+    <TextView
+        android:id="@+id/Statistic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:text="@string/statistics"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/badassGreen"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/TitleScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="102dp"
+        android:gravity="center"
+        android:text="@string/list_of_score"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/TitleScore"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="146dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/AverageScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TitleScore"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="213dp"
+        android:layout_marginTop="104dp"
+        android:text="@string/average_score"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/Average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AverageScore"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="243dp"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp" />
+
+
+
+
+</RelativeLayout>

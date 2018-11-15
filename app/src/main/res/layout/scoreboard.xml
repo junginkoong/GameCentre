@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/badassBlue"
+    tools:context="com.example.prathamdesai13.gamecentre.ScoreboardActivity">
+
+    <TextView
+        android:id="@+id/Scoreboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:text="@string/scoreboard"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/badassGreen"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/UsernameList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="@string/username"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/ScoreList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/score"
+        android:gravity="center"
+        android:textSize="17sp"
+        />
+
+    <TextView
+        android:id="@+id/DisplayUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        />
+
+
+</RelativeLayout>

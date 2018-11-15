@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">GameCentre</string>
+    <string name= "greeting">Welcome to Tile Game</string>
+    <string name= "launch_greeting">Welcome to the Arcade</string>
+    <string name="undo">Undo</string>
+    <string name="move_count">Move:</string>
+    <string name= "login">Login</string>
+    <string name= "sign_up">Sign Up</string>
+    <string name="choose_complexity">Complexity</string>
+    <string name="load_saved_game">Load Saved Game</string>
+    <string name="new_game">New Game</string>
+    <string name="save_game">Save Game</string>
+    <string name="scoreboard">Scoreboard</string>
+    <string name="load_background">Load Background</string>
+    <string name="username"> Username </string>
+    <string name="password"> Password </string>
+    <string name="re_enter_password"> Re-enter Password </string>
+    <string name= "complexity_list">Complexities</string>
+    <string name= "start_tile_game_button">Start Tile Game</string>
+    <string name= "welcome_user"> Welcome User</string>
+    <string name= "stats"> Stats</string>
+    <string name= "statistics"> Statistics</string>
+    <string name= "average_score"> Average Score</string>
+    <string name= "list_of_score"> Top 10 Scores</string>
+    <string name= "score"> Scores</string>
+</resources>
