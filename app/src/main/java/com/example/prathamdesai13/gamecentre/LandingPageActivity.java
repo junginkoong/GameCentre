@@ -60,7 +60,7 @@ public class LandingPageActivity extends Activity {
      */
     private void switchToStartingActivity()
     {
-        Intent tmp = new Intent(this, StartingActivity.class);
+        Intent tmp = new Intent(this, SlidingTiles.class);
         tmp.putExtra("user", user);
         startActivity(tmp);
     }
