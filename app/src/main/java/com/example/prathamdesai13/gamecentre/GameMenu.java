@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class GameMenu extends Activity {
     String user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,7 @@ public class GameMenu extends Activity {
         game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // does nothing rn
+                startZigZag();
             }
         });
     }
@@ -60,5 +61,10 @@ public class GameMenu extends Activity {
         startActivity(tmp);
     }
 
+    private void startZigZag(){
+        Intent tmp = new Intent(this, ZigZagDisplay.class);
+        tmp.putExtra("USERNAME", user);
+        startActivity(tmp);
+    }
 
 }

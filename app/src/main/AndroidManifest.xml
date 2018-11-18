@@ -19,9 +19,9 @@
         <activity android:name=".GameMenu"></activity>
         <activity android:name=".GameActivity"></activity>
         <activity android:name=".SlidingTiles"></activity>
+        <activity android:name=".ZigZagDisplay"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".LandingPageActivity"></activity>
         <activity android:name=".StatisticsActivity"></activity>
         <activity android:name=".ScoreboardActivity"></activity>
     </application>
