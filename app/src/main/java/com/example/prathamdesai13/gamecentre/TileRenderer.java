@@ -74,6 +74,8 @@ public class TileRenderer implements GLSurfaceView.Renderer {
         gl.glEnable(GL10.GL_ALPHA_TEST);
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
+
+
         // We are in 2D, so no need depth
         gl.glDisable(GL10.GL_DEPTH_TEST);
         // Enable vertex arrays (we'll use them to draw primitives).
