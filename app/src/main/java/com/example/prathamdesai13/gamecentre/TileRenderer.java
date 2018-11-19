@@ -76,8 +76,8 @@ public class TileRenderer implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        String vertexShaderSource = ResourceReader.readFileFromResource(this.context, R.raw.vertex_shader);
-        String fragmentShaderSource = ResourceReader.readFileFromResource(this.context, R.raw.fragment_shader);
+//        String vertexShaderSource = ResourceReader.readFileFromResource(this.context, R.raw.vertex_shader);
+//        String fragmentShaderSource = ResourceReader.readFileFromResource(this.context, R.raw.fragment_shader);
     }
 
     /**
