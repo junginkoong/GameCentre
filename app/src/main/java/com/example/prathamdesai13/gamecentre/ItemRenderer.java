@@ -1,14 +1,13 @@
 package com.example.prathamdesai13.gamecentre;
 
-import android.content.Context;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 import android.content.res.Resources;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Provides drawing instructions for a GLSurfaceView object. This class
@@ -19,29 +18,62 @@ import javax.microedition.khronos.opengles.GL10;
  *   <li>{@link android.opengl.GLSurfaceView.Renderer#onSurfaceChanged}</li>
  * </ul>
  */
-public class PlayerRenderer implements GLSurfaceView.Renderer {
+public class ItemRenderer implements GLSurfaceView.Renderer {
 
-    Sphere mSphere;
-
-    private static final String TAG = "PlayerRenderer";
+    private static final String TAG = "ItemRenderer";
+    private Triangle mTriangle1;
+    private Triangle mTriangle2;
+    private Triangle mTriangle3;
+    private Triangle mTriangle4;
+    private Resources res;
 
     // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
-    private Resources res;
 
-    public PlayerRenderer(Resources res){
-        this.res = res;
-    }
+    public ItemRenderer(Resources res){this.res =res;}
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
 
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        float temp_coords_1[] = {
+                0.0f, 0.62f, 0.0f,
+                0.06f, 0.57f, 0.0f,
+                0.005f, 0.55f, 0.0f
+        };
+        float color_1[] = { 1.0f, 0.7f, 1.0f, 0.0f };
+        mTriangle1 = new Triangle(temp_coords_1, color_1, res);
 
-        mSphere = new Sphere(10,10,0.05f, 1.0f, res);
+        float temp_coords_2[] = {
+                0.0f, 0.62f, 0.0f,
+                -0.06f, 0.56f, 0.0f,
+                0.005f, 0.55f, 0.0f
+        };
+        float color_2[] = { 1.0f, 0.0f, 1.0f, 0.0f };
+
+        mTriangle2 = new Triangle(temp_coords_2, color_2, res);
+
+        float temp_coords_3[] = {
+                0.005f, 0.55f, 0.0f,
+                0.06f, 0.57f, 0.0f,
+                0.005f, 0.515f, 0.0f
+        };
+
+        mTriangle3 = new Triangle(temp_coords_3, color_2, res);
+
+        float temp_coords_4[] = {
+                0.005f, 0.55f, 0.0f,
+                0.005f, 0.515f, 0.0f,
+                -0.06f, 0.56f, 0.0f
+        };
+
+        float color_3[] = { 0.6f, 0.0f, 0.6f, 0.0f };
+
+        mTriangle4 = new Triangle(temp_coords_4, color_3, res);
+
     }
 
     @Override
@@ -57,8 +89,11 @@ public class PlayerRenderer implements GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
-        //Draw Sphere
-        mSphere.draw(mMVPMatrix);
+        // Draw triangle
+        mTriangle1.draw(mMVPMatrix);
+        mTriangle2.draw(mMVPMatrix);
+        mTriangle3.draw(mMVPMatrix);
+        mTriangle4.draw(mMVPMatrix);
     }
 
     @Override
@@ -104,7 +139,7 @@ public class PlayerRenderer implements GLSurfaceView.Renderer {
      *
      * <pre>
      * mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
-     * PlayerRenderer.checkGlError("glGetUniformLocation");</pre>
+     * MyGLRenderer.checkGlError("glGetUniformLocation");</pre>
      *
      * If the operation is not successful, the check throws an error.
      *
@@ -117,8 +152,5 @@ public class PlayerRenderer implements GLSurfaceView.Renderer {
             throw new RuntimeException(glOperation + ": glError " + error);
         }
     }
+
 }
-
-
-
-
