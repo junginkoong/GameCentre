@@ -1,12 +1,9 @@
 package com.example.prathamdesai13.gamecentre;
 
 import android.content.Context;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
-import com.example.prathamdesai13.gamecentre.utils.ResourceReader;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -14,40 +11,38 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class TileRenderer implements GLSurfaceView.Renderer {
 
-    private float[] vertices;
-    private float width;
-    private float length;
+    private FloatBuffer vertexBuffer;
+    private float w;
+    private float h;
+    private float screenW;
+    private float screenH;
+    public TileRenderer(FloatBuffer vertexBuffer){
 
-    private static final int BYTES_PER_FLOAT = 4; // 32 bits per float <=> 4 bytes per float
-    private final FloatBuffer nativeVertices; // to store data in native env
+//        this.context = context;
+//        // define tile metrics
+//        this.width = 10.0f;
+//        this.length = 10.0f;
+//
+//        // define vertices of the tile
+//        // note openGL renders points, lines, and triangles
+//        vertices = new float[8];
+//        vertices[0] = x;
+//        vertices[1] = y;
+//        vertices[2] = x + width;
+//        vertices[3] = y;
+//        vertices[4] = x;
+//        vertices[5] = y + length;
+//        vertices[6] = x + width;
+//        vertices[7] = y + length;
+//
+//        // mem not managed by garbage colelctor
+//        // allocate mem block directly, order bytes in native order, convert to float buffer
+//        nativeVertices = ByteBuffer.allocateDirect(vertices.length * BYTES_PER_FLOAT)
+//                .order(ByteOrder.nativeOrder()).asFloatBuffer();
+//
+//        nativeVertices.put(vertices);
 
-    private final Context context;
-
-    public TileRenderer(Context context, float x, float y){
-
-        this.context = context;
-        // define tile metrics
-        this.width = 10.0f;
-        this.length = 10.0f;
-
-        // define vertices of the tile
-        // note openGL renders points, lines, and triangles
-        vertices = new float[8];
-        vertices[0] = x;
-        vertices[1] = y;
-        vertices[2] = x + width;
-        vertices[3] = y;
-        vertices[4] = x;
-        vertices[5] = y + length;
-        vertices[6] = x + width;
-        vertices[7] = y + length;
-
-        // mem not managed by garbage colelctor
-        // allocate mem block directly, order bytes in native order, convert to float buffer
-        nativeVertices = ByteBuffer.allocateDirect(vertices.length * BYTES_PER_FLOAT)
-                .order(ByteOrder.nativeOrder()).asFloatBuffer();
-
-        nativeVertices.put(vertices);
+        this.vertexBuffer = vertexBuffer;
 
     }
     /**
@@ -76,8 +71,14 @@ public class TileRenderer implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        String vertexShaderSource = ResourceReader.readFileFromResource(this.context, R.raw.vertex_shader);
-        String fragmentShaderSource = ResourceReader.readFileFromResource(this.context, R.raw.fragment_shader);
+        gl.glEnable(GL10.GL_ALPHA_TEST);
+        gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        // We are in 2D, so no need depth
+        gl.glDisable(GL10.GL_DEPTH_TEST);
+        // Enable vertex arrays (we'll use them to draw primitives).
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+
     }
 
     /**
@@ -106,7 +107,25 @@ public class TileRenderer implements GLSurfaceView.Renderer {
      */
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
+        if (width > height){
+            h = 800;
+            w = width * h / height;
+        }else{
+            w = 800;
+            h = height * w / width;
+        }
+
+        screenW = width;
+        screenH = height;
+
+        gl.glViewport(0, 0, (int) screenW, (int) screenH);
+        gl.glMatrixMode(GL10.GL_PROJECTION);
+        gl.glLoadIdentity();
+        gl.glOrthof(0, w, h, 0, -1, 1);
+        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        gl.glLoadIdentity();
     }
 
     /**
@@ -127,6 +146,13 @@ public class TileRenderer implements GLSurfaceView.Renderer {
      */
     @Override
     public void onDrawFrame(GL10 gl) {
-
+        gl.glPushMatrix();
+        gl.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        gl.glTranslatef( w / 2, h / 2, 0.0f);
+        gl.glScalef(120, 100, 0);
+        gl.glColor4f((float) (110.0 / 255.0), (float) (189.0 / 255.0), (float) (250.0 / 255.0), 1.0f);
+        gl.glVertexPointer(3, GLES20.GL_FLOAT, 0, this.vertexBuffer);
+        gl.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
+        gl.glPopMatrix();
     }
 }

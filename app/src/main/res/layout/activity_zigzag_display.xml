@@ -3,4 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.example.prathamdesai13.gamecentre.Square
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </android.support.constraint.ConstraintLayout>
