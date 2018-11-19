@@ -22,8 +22,6 @@ public class Square extends GLSurfaceView {
 
     private final int BYTES_PER_FLOAT = 4;
 
-    private ArrayList<Float> verts;
-
     public Square(Context context, AttributeSet attrs) {
         super(context, attrs);
         setEGLConfigChooser(8, 8, 8, 8, 0, 0);
@@ -42,14 +40,8 @@ public class Square extends GLSurfaceView {
                 0.0f, -2.0f, 0.0f,
         };
 
-        for (int i = 0; i < vertices.length; i++){
-            verts.add(vertices[i]);
-        }
         vertexBuffer = ByteBuffer.allocateDirect(vertices.length * BYTES_PER_FLOAT)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-
-        float [] vertexes = new float[4];
-        for (int i = 0; i < )
         vertexBuffer.put(vertices);
         vertexBuffer.position(0);
 
@@ -57,7 +49,7 @@ public class Square extends GLSurfaceView {
 
     }
 
-    public void generateTile(){
+    public void updateMap(){
 
 
 

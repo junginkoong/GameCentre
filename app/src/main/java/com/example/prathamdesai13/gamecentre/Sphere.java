@@ -1,33 +1,23 @@
 package com.example.prathamdesai13.gamecentre;
 
-import android.content.Context;
-import android.opengl.GLES20;
-
 import com.example.prathamdesai13.gamecentre.utils.ResourceReader;
 
+import android.content.res.Resources;
+import android.opengl.GLES20;
+
+
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.Scanner;
 
 
 public class Sphere {
 
-    private final String vertexShaderCode =
-            "uniform mat4 uMVPMatrix;" +
-                    "attribute vec4 vPosition;" +
-                    "void main() {" +
-                    // The matrix must be included as a modifier of gl_Position.
-                    // Note that the uMVPMatrix factor *must be first* in order
-                    // for the matrix multiplication product to be correct.
-                    "  gl_Position = uMVPMatrix * vPosition;" +
-                    "}";
+    private String vertexShaderCode;
 
-    private final String fragmentShaderCode =
-            "precision mediump float;" +
-                    "uniform vec4 vColor;" +
-                    "void main() {" +
-                    "  gl_FragColor = vColor;" +
-                    "}";
+    private String fragmentShaderCode;
 
     private FloatBuffer vertexBuffer;
 
@@ -39,7 +29,9 @@ public class Sphere {
 
     private final int mProgram;
 
-    public Sphere(int stacks, int slices, float radius, float squash) {
+    public Sphere(int stacks, int slices, float radius, float squash, Resources res) {
+        vertexShaderCode = ResourceReader.readFileFromResource(res, R.raw.vertex_shader_sphere);
+        fragmentShaderCode = ResourceReader.readFileFromResource(res, R.raw.fragment_shader_sphere);
 
         this.m_Stacks = stacks;
         this.m_Slices = slices;

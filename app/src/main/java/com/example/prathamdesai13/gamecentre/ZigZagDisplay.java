@@ -2,8 +2,11 @@ package com.example.prathamdesai13.gamecentre;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+
+import java.io.InputStream;
 
 public class ZigZagDisplay extends Activity {
 
@@ -21,6 +24,7 @@ public class ZigZagDisplay extends Activity {
 //        gls1.setRenderer(new PlayerRenderer());
 //        setContentView(gls1);
 //        renderSet = true;
+
 
     }
 
