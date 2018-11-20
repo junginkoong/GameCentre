@@ -17,13 +17,11 @@ public class ZigZagDisplay extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zigzag_display);
-        tile = (Square) findViewById(R.id.map);
-//        gls1 = new GLSurfaceView(this);
-//        gls1.setEGLContextClientVersion(2);
-//        gls1.setRenderer(new PlayerRenderer());
-//        setContentView(gls1);
-//        renderSet = true;
+        gls1 = new GLSurfaceView(this);
+        gls1.setEGLContextClientVersion(2);
+        gls1.setRenderer(new PlayerRenderer(getResources()));
+        setContentView(gls1);
+        renderSet = true;
 
 
     }
