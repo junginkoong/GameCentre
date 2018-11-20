@@ -22,6 +22,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class PlayerRenderer implements GLSurfaceView.Renderer {
 
     Sphere mSphere;
+    Circle mCircle;
 
     private static final String TAG = "PlayerRenderer";
 
@@ -42,6 +43,7 @@ public class PlayerRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         mSphere = new Sphere(10,10,0.05f, 1.0f, res);
+
     }
 
     @Override
