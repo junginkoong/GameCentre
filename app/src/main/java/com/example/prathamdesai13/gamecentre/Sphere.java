@@ -29,12 +29,6 @@ public class Sphere {
 
     private final int mProgram;
 
-    private final float radius = 0.05f;
-
-    private final float mCenterX = 0;
-
-    private final float mCenterY = 0;
-
 
     public Sphere(int stacks, int slices, float radius, float squash, Resources res) {
         vertexShaderCode = ResourceReader.readFileFromResource(res, R.raw.vertex_shader_sphere);
@@ -108,12 +102,6 @@ public class Sphere {
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
-
-        //get centre
-        GLES20.glUniform2f(GLES20.glGetUniformLocation(mProgram, "uCentre"), mCenterX, mCenterY);
-
-        //get radius
-        GLES20.glUniform1f(GLES20.glGetUniformLocation(mProgram, "radius"), radius);
 
         // Apply the projection and view transformation
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);

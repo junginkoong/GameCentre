@@ -10,6 +10,7 @@ import android.opengl.Matrix;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
 /**
@@ -21,88 +22,89 @@ import java.util.Timer;
  *   <li>{@link android.opengl.GLSurfaceView.Renderer#onSurfaceChanged}</li>
  * </ul>
  */
-public class ItemRenderer implements GLSurfaceView.Renderer {
+public class ZigZagRenderer implements GLSurfaceView.Renderer{
 
-    private static final String TAG = "ItemRenderer";
-    private Triangle mTriangle1;
-    private Triangle mTriangle2;
-    private Triangle mTriangle3;
-    private Triangle mTriangle4;
-    private Resources res;
-    private  Sphere mSphere;
-    private float y = -0.55f;
+    private static final String TAG = "ZigZagRenderer";
+    private static final int ARRAY_SIZE = 10;
 
-    // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
-    private final float[] mTranslationMatrix = new float[16];
-    private final float[] mRotationMatrix = new float[16];
-    private final float[] mModelMatrix = new float[16];
 
-    private long time;
-    private int rep = 0;
-    private long time1;
-    private Timer timer = new Timer();
+    private ArrayList<Square> mSquares = new ArrayList<>();
 
-    public volatile float Tempy;
+    private Resources res;
 
-    public ItemRenderer(Resources res){this.res =res;}
+    public float[] coord;
+    public int balance = 0;
+
+
+
+    public ZigZagRenderer(Resources res){this.res =res;}
+
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-
         // Set the background frame color
         GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        float temp_coords_1[] = {
-                0.0f, 0.62f + y, 0.0f,
-                0.06f, 0.57f + y, 0.0f,
-                0.005f, 0.55f+ y, 0.0f
-        };
-        float color_1[] = { 1.0f, 0.7f, 1.0f, 0.0f };
-        mTriangle1 = new Triangle(temp_coords_1, color_1, res);
 
-        float temp_coords_2[] = {
-                0.0f, 0.62f+ y, 0.0f,
-                -0.06f, 0.56f+ y, 0.0f,
-                0.005f, 0.55f+ y, 0.0f
-        };
-        float color_2[] = { 1.0f, 0.0f, 1.0f, 0.0f };
+        //Starting platform
+        float[] check = {
+                0.0f,  -0.25f, 0.0f, // a1 , a2
+                -0.5f, -0.5f, 0.0f, // b1, b2
+                0.0f, -0.75f, 0.0f, // c1 c2
+                0.5f,  -0.5f, 0.0f }; //d1 d2
+        float color[] = {0.5f, 0.5f, 0.5f, 1.0f};
 
-        mTriangle2 = new Triangle(temp_coords_2, color_2, res);
+        mSquares.add(new Square(check, color, res));
 
-        float temp_coords_3[] = {
-                0.005f, 0.55f+ y, 0.0f,
-                0.06f, 0.57f+ y, 0.0f,
-                0.005f, 0.515f+ y, 0.0f
-        };
+        //Start off with a tile on the right
+        float[] check2 = {
+                -0.5f/3f,(-0.25f - (2f*(-0.25f +0.5f)/3f -0.5f)) -0.25f, 0.0f,
+                2f*-0.5f/3f, -0.25f, 0.0f,
+                -0.5f/3f, 2f*(-0.25f +0.5f)/3f + (-0.5f), 0.0f,
+                0.0f, -0.25f, 0.0f };
+        float color2[] = {0.0f, 0.0f, 0.0f, 1.0f};
+        mSquares.add(new Square(check2, color2, res));
+        balance += 1; //added one tile to the right
+        //save recent coordination
+        coord = check2;
 
-        mTriangle3 = new Triangle(temp_coords_3, color_2, res);
+        //Now randomly generate a number between 0 and 1 (left and right). Unless out-of-bound.
+        for (int i = 0; i < 12; i++){
+            int rand = (int) (Math.random()*2); //this is random number
+            boolean goRight = true;
+            if (balance == 3){ goRight = false;} //no space in right
+            else if (balance == -3){goRight = true;} // no space in left
+            else if (rand == 0){goRight = true;} // generated right
+            else if(rand == 1){goRight = false;} //generated left
 
-        float temp_coords_4[] = {
-                0.005f, 0.55f+ y, 0.0f,
-                0.005f, 0.515f+ y, 0.0f,
-                -0.06f, 0.56f+ y, 0.0f
-        };
+            if (goRight){ //then draw a square right
+                float[] temp_coord = {
+                        coord[3], 2f*(coord[1] - coord[4]) + coord[4], 0.0f,
+                        coord[0] - 2f*(coord[0] - coord[3]), coord[1], 0.0f,
+                        coord[3], coord[4], 0.0f,
+                        coord[0], coord[1], 0.0f};
+                mSquares.add(new Square(temp_coord, color2, res));
+                coord = temp_coord; //update
+                balance += 1;
+            } else if (!goRight){ //then draw a square left
+                float[] temp_coord = {
+                        coord[9], 2f*(coord[1] - coord[10]) + coord[10], 0.0f,
+                        coord[0], coord[1], 0.0f,
+                        coord[9], coord[10], 0.0f,
+                        2f*(coord[9] - coord[0]) + coord[0], coord[1], 0.0f};
+                mSquares.add(new Square(temp_coord, color2, res));
+                coord = temp_coord; //update
+                balance -= 1;
+            }
+        }
 
-        float color_3[] = { 0.6f, 0.0f, 0.6f, 0.0f };
-
-        mTriangle4 = new Triangle(temp_coords_4, color_3, res);
-
-        mSphere = new Sphere(10,10,0.05f, 1.0f, res);
-
-        time1 = System.currentTimeMillis();
 
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        float[] scratch;
-        Matrix.setIdentityM(mModelMatrix, 0);
-        time = System.currentTimeMillis();
-        //System.out.println(time);
-
-        Tempy = 0.0001f * ((int) time - (int) time1);
 
         // Draw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
@@ -110,19 +112,13 @@ public class ItemRenderer implements GLSurfaceView.Renderer {
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
-        Matrix.translateM(mModelMatrix, 0, 0, Tempy, 0);
-
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
-        scratch = mMVPMatrix.clone();
-        Matrix.multiplyMM(mMVPMatrix, 0, scratch, 0, mModelMatrix, 0);
 
-        // Draw triangle
-        mTriangle1.draw(mMVPMatrix);
-        mTriangle2.draw(mMVPMatrix);
-        mTriangle3.draw(mMVPMatrix);
-        mTriangle4.draw(mMVPMatrix);
-        //mSphere.draw(mMVPMatrix);
+        for (Square s: mSquares){
+            s.draw(mMVPMatrix);
+        }
+
     }
 
     @Override
@@ -136,8 +132,8 @@ public class ItemRenderer implements GLSurfaceView.Renderer {
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
         Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
-
     }
+
 
     /**
      * Utility method for compiling a OpenGL shader.
@@ -181,5 +177,4 @@ public class ItemRenderer implements GLSurfaceView.Renderer {
             throw new RuntimeException(glOperation + ": glError " + error);
         }
     }
-
 }
