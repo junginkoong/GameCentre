@@ -3,11 +3,11 @@ package com.example.prathamdesai13.gamecentre;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 
-public class ItemSurfaceView extends GLSurfaceView {
+public class ZigZagSurfaceView extends GLSurfaceView {
 
     private final ZigZagRenderer mRenderer;
 
-    public ItemSurfaceView(Context context) {
+    public ZigZagSurfaceView(Context context) {
         super(context);
 
         // Create an OpenGL ES 2.0 context.
@@ -17,7 +17,6 @@ public class ItemSurfaceView extends GLSurfaceView {
         // Set the Renderer for drawing on the GLSurfaceView
         mRenderer = new ZigZagRenderer(getResources());
         setRenderer(mRenderer);
-        setRenderMode(1);
 
         // Render the view only when there is a change in the drawing data
         //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);

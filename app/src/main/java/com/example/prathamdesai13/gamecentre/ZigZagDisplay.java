@@ -16,7 +16,7 @@ public class ZigZagDisplay extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gls1 = new ItemSurfaceView(this);
+        gls1 = new ZigZagSurfaceView(this);
         //gls1.setEGLContextClientVersion(2);
         //gls1.setRenderer(new ItemRenderer(getResources()));
         setContentView(gls1);
